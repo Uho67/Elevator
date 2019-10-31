@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">elevator_form.elevator_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Page Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Magento\Cms\Block\Adminhtml\Page\Edit\BackButton"/>
+        </buttons>
+        <namespace>elevator_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>elevator_form.elevator_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="elevator_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="cms/page/save"/>
+        </settings>
+        <dataProvider class="Mytest\Elevator\DataProvider\BaseElevatorProvider" name="elevator_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>elevator_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label>Elevator</label>
+        </settings>
+    <field name="current_floor" formElement="input">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="source" xsi:type="string">elevator</item>
+            </item>
+        </argument>
+        <settings>
+            <label>Current Floor</label>
+            <dataType>text</dataType>
+            <visible>true</visible>
+            <dataScope>current_floor</dataScope>
+        </settings>
+    </field>
+    <field name="max_floor" formElement="input">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="source" xsi:type="string">elevator</item>
+            </item>
+        </argument>
+        <settings>
+            <label>Max floor</label>
+            <dataType>text</dataType>
+            <visible>true</visible>
+            <dataScope>max_floor</dataScope>
+        </settings>
+    </field>
+    <field name="min_floor" formElement="input">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="source" xsi:type="string">elevator</item>
+            </item>
+        </argument>
+        <settings>
+            <label>Max floor</label>
+            <dataType>text</dataType>
+            <visible>true</visible>
+            <dataScope>min_floor</dataScope>
+        </settings>
+    </field>
+    <field name="speed" formElement="input">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="source" xsi:type="string">elevator</item>
+            </item>
+        </argument>
+        <settings>
+            <label>Speed</label>
+            <dataType>text</dataType>
+            <visible>true</visible>
+            <dataScope>speed</dataScope>
+        </settings>
+    </field>
+
+    <field name="if_broken" formElement="boolean" component="Magento_Ui/js/grid/columns/onoff">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="source" xsi:type="string">elevator</item>
+            </item>
+        </argument>
+        <settings>
+            <label>Broken?</label>
+            <dataType>text</dataType>
+            <visible>true</visible>
+            <dataScope>if_broken</dataScope>
+        </settings>
+    </field>
+        <field name="if_broken" >
+            <argument name="data" xsi:type="array">
+                   <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Broken ?</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">if_broken</item>
+                    <item name="require" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">if_broken</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>
+
+

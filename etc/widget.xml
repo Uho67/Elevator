@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:hellomagento:Magento_Widget:etc/widget.xsd">
+    <widget class="Mytest\Elevator\Block\Widget\Elevators" id="elevator_widget">
+        <label>Widget elevator</label>
+        <description>Elevator</description>
+        <parameters>
+            <parameter name="elevator" sort_order="10" visible="true" xsi:type="text">
+                <label>Elevator</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

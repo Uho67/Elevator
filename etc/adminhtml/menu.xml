@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mytest_Elevator::main_menu"
+             title="Mytest Elevator"
+             module="Mytest_Elevator"
+             sortOrder="12"
+             resource="Mytest_Elevator::main_menu" />
+        <add id="Mytest_Elevator::grid_elevator"
+             title="Grid Elevator"
+             module="Mytest_Elevator"
+             sortOrder="100"
+             action="elevator/baseelevator/listing"
+             parent="Mytest_Elevator::main_menu"
+             resource="Mytest_Elevator::grid_elevator" />
+    </menu>
+</config>

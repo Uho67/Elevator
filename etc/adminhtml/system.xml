@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mytest_elevator" translate="label" sortOrder="102">
+            <label>Elevator Settings</label>
+        </tab>
+        <section id="elevator" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Elevator</label>
+            <tab>mytest_elevator</tab>
+            <resource>Mytest_Elevator::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="elevator_cloused_country" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Elevator closed country</label>
+                    <source_model>Magento\Customer\Model\ResourceModel\Address\Attribute\Source\Country</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

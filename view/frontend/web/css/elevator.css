@@ -1,0 +1,23 @@
+.button_elevator{
+    border: 1px solid slategray;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+.chose_elebator_buttons{
+    border: 1px solid sandybrown;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+.active_elevator_floor{
+    background-color: #0a6c9f;
+}
+.press_button_elevator{
+    background: #0fa7ff;
+}
+#elevator_status{
+    width: 100%;
+    height: 50px;
+    background-color: lightgreen;
+}

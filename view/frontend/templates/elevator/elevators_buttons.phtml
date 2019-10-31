@@ -1,0 +1,19 @@
+<div id="elevator_status"></div>
+<?php $elevator = $block->getCurrentElevator()?>
+    <?php for ($i=$elevator->getMinFloor();$i<=$elevator->getMaxFloor();$i++) {
+        if($i == $elevator->getCurrentFloor()) {
+            echo '<div id='.$i.' class="button_elevator active_elevator_floor">';
+        } else {
+            echo '<div id='.$i.' class="button_elevator">';
+        }
+        echo $i.'</div>';
+    }?>
+<script type = "text/x-magento-init">
+{
+         ".chose_elebator_buttons":{
+         "Mytest_Elevator/js/elevatorwork":{
+         "elevator_id":"<?php echo $elevator->getId()?>"
+         }
+     }
+}
+</script>

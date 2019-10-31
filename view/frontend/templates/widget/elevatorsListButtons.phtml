@@ -1,0 +1,22 @@
+<div id="mypages" class="chose_elebator_buttons">
+<?php foreach ($block->getListElevators() as $elevator) {
+   if($elevator->getIfBroken()) {
+       echo '<div id="'.$elevator->getId().'" class="button_elevator" style="background-color:red ;">';
+   } else {
+       echo '<div id="'.$elevator->getId().'" class="button_elevator" style="background-color:green;">';
+   }
+   echo $elevator->getId().'</div>';
+}
+?>
+</div>
+
+<script type = "text/x-magento-init">
+{
+         ".button_elevator":{
+         "Mytest_Elevator/js/gotopage":{
+                "path": "<?php echo $block->getLink()?>"
+         }
+     }
+}
+
+</script>

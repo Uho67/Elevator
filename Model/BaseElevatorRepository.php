@@ -7,6 +7,9 @@
  */
 
 namespace Mytest\Elevator\Model;
+use Magento\Framework\Api\SearchCriteriaBuilderFactory;
+
+use SearchCriteriaBuilderFactory;
 
 /**
  * Class BaseElevatorRepository
@@ -134,5 +137,9 @@ class BaseElevatorRepository implements \Mytest\Elevator\Api\BaseElevatorReposit
             throw new \Magento\Framework\Exception\CouldNotSaveException(__($exception->getMessage()));
         }
         return $baseElevator;
+    }
+    private function validation(\Mytest\Elevator\Api\Data\BaseElevatorInterface $baseElevator)
+    {
+
     }
 }

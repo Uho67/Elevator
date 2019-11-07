@@ -43,6 +43,7 @@ class BaseElevatorProvider extends AbstractDataProvider
     public function getData()
     {
         $model = $this->sessionManager->getCurrentElevatorModel();
+        $this->sessionManager->setCurrentElevatorModel(null);
         if($model!=null) {
           return [$model->getId()=> $model->getData()];
         } else return [];

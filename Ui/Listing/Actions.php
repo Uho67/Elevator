@@ -22,7 +22,8 @@ class Actions extends Column
     /**
      *
      */
-    const URL_EDIT = 'elevator/baseelevator/edit';
+    const URL_EDIT   = 'elevator/baseelevator/edit';
+    const URL_DELETE = 'elevator/baseelevator/delete';
 
     /**
      *
@@ -66,6 +67,10 @@ class Actions extends Column
                     $item[$name]['edit'] = [
                         'href' => $this->urlBuilder->getUrl($this::URL_EDIT, ['id' => $item[$this::IDENTIFIRE]]),
                         'label' => __('Edit')
+                    ];
+                    $item[$name]['delete'] = [
+                        'href' => $this->urlBuilder->getUrl($this::URL_DELETE, ['id' => $item[$this::IDENTIFIRE]]),
+                        'label' => __('Delete')
                     ];
                 }
             }

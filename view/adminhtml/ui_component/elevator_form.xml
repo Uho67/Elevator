@@ -10,12 +10,12 @@
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">elevator_form.elevator_form_data_source</item>
         </item>
-        <item name="label" xsi:type="string" translate="true">Page Information</item>
+        <item name="label" xsi:type="string" translate="true">Elevator Information</item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
     </argument>
     <settings>
         <buttons>
-            <button name="back" class="Magento\Cms\Block\Adminhtml\Page\Edit\BackButton"/>
+            <button name="save" class="Mytest\Elevator\Block\Adminhtml\Elevator\Buttons\SaveButton"/>
         </buttons>
         <namespace>elevator_form</namespace>
         <dataScope>data</dataScope>
@@ -30,7 +30,7 @@
             </item>
         </argument>
         <settings>
-            <submitUrl path="cms/page/save"/>
+            <submitUrl path="*/*/save"/>
         </settings>
         <dataProvider class="Mytest\Elevator\DataProvider\BaseElevatorProvider" name="elevator_form_data_source">
             <settings>
@@ -43,70 +43,56 @@
         <settings>
             <label>Elevator</label>
         </settings>
-    <field name="current_floor" formElement="input">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="source" xsi:type="string">elevator</item>
-            </item>
-        </argument>
-        <settings>
-            <label>Current Floor</label>
-            <dataType>text</dataType>
-            <visible>true</visible>
-            <dataScope>current_floor</dataScope>
-        </settings>
-    </field>
+        <field name="min_floor" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">elevator</item>
+                    <item name="require" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <settings>
+                <label>Min floor</label>
+                <visible>true</visible>
+                <dataScope>min_floor</dataScope>
+                <validation>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
     <field name="max_floor" formElement="input">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="source" xsi:type="string">elevator</item>
+                <item name="require" xsi:type="boolean">true</item>
             </item>
         </argument>
         <settings>
             <label>Max floor</label>
-            <dataType>text</dataType>
+            <dataType>int</dataType>
             <visible>true</visible>
             <dataScope>max_floor</dataScope>
+            <validation>
+                <rule name="required-entry" xsi:type="boolean">true</rule>
+                <rule name="validate-number" xsi:type="boolean">true</rule>
+            </validation>
         </settings>
     </field>
-    <field name="min_floor" formElement="input">
+    <field name="elevator_speed" formElement="input">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="source" xsi:type="string">elevator</item>
-            </item>
-        </argument>
-        <settings>
-            <label>Max floor</label>
-            <dataType>text</dataType>
-            <visible>true</visible>
-            <dataScope>min_floor</dataScope>
-        </settings>
-    </field>
-    <field name="speed" formElement="input">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="source" xsi:type="string">elevator</item>
+                <item name="require" xsi:type="boolean">true</item>
             </item>
         </argument>
         <settings>
             <label>Speed</label>
-            <dataType>text</dataType>
             <visible>true</visible>
-            <dataScope>speed</dataScope>
-        </settings>
-    </field>
-
-    <field name="if_broken" formElement="boolean" component="Magento_Ui/js/grid/columns/onoff">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="source" xsi:type="string">elevator</item>
-            </item>
-        </argument>
-        <settings>
-            <label>Broken?</label>
-            <dataType>text</dataType>
-            <visible>true</visible>
-            <dataScope>if_broken</dataScope>
+            <dataScope>elevator_speed</dataScope>
+            <validation>
+                <rule name="validate-number" xsi:type="boolean">true</rule>
+                <rule name="required-entry" xsi:type="boolean">true</rule>
+            </validation>
         </settings>
     </field>
         <field name="if_broken" >

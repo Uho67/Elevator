@@ -62,19 +62,19 @@ class InstallSchema implements InstallSchemaInterface
             BaseElevatorInterface::FIELD_CURRENT_FLOOR,
             Table::TYPE_INTEGER,
             null,
-            ['identity' => false, 'nullable' => false, 'unsigned'=> true],
+            ['identity' => false, 'nullable' => false, 'unsigned'=> false],
             'Current floor'
         )->addColumn(
             BaseElevatorInterface::FIELD_MAX_FLOOR,
             Table::TYPE_INTEGER,
             null,
-            ['identity' => false, 'nullable' => false, 'unsigned'=> true],
+            ['identity' => false, 'nullable' => false, 'unsigned'=> false],
             'Max floor'
         )->addColumn(
             BaseElevatorInterface::FIELD_MIN_FLOOR,
             Table::TYPE_INTEGER,
             null,
-            ['identity' => false, 'nullable' => false, 'unsigned'=> true],
+            ['identity' => false, 'nullable' => false, 'unsigned'=> false],
             'Min floor'
         )->addColumn(
             BaseElevatorInterface::FIELD_BROKEN,

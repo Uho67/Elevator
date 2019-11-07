@@ -8,17 +8,16 @@
 
 namespace Mytest\Elevator\Controller\Adminhtml;
 
-use Magento\Framework\View\Result\PageFactory;
-use Psr\Log\LoggerInterface;
-use Mytest\Elevator\Api\BaseElevatorRepositoryInterface as Repository;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Session\SessionManagerInterface;
 
-/**
- * Class AbstractElevator
- * @package Mytest\Elevator\Controller\Adminhtml
- */
+use Mytest\Elevator\Model\BaseElevatorFactory;
+use Mytest\Elevator\Api\BaseElevatorRepositoryInterface as Repository;
+
+
 abstract class AbstractElevator extends Action
 {
     /**
@@ -33,14 +32,13 @@ abstract class AbstractElevator extends Action
      *
      */
     const TITLE                 = 'Elevator module';
-    /**
-     *
-     */
-    const MENU_ITEM             = 'MyModules_QuickOrder::statusAll';
+
     /**
      *
      */
     const BREADCRUMB_TITLE      = 'ELevator';
+    protected $model;
+    protected $elevatorFactory;
     /**
      * @var
      */
@@ -54,35 +52,24 @@ abstract class AbstractElevator extends Action
      */
     protected $sessionManager;
     /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-    /**
      * @var PageFactory
      */
     protected $pageFactory;
 
-    /**
-     * AbstractElevator constructor.
-     *
-     * @param PageFactory $pageFactory
-     * @param LoggerInterface $logger
-     * @param SessionManagerInterface $sessionManager
-     * @param Repository $repository
-     * @param Context $context
-     */
-    public function __construct(PageFactory $pageFactory,
-                                LoggerInterface $logger,
+
+    public function __construct(BaseElevatorFactory $baseElevatorFactory,
+                                PageFactory $pageFactory,
                                 SessionManagerInterface $sessionManager,
                                 Repository $repository,
                                 Context $context
     ) {
-        $this->pageFactory    = $pageFactory;
-        $this->logger         = $logger;
-        $this->sessionManager = $sessionManager;
-        $this->repository     = $repository;
-        parent::__construct($context);
+        $this->elevatorFactory = $baseElevatorFactory;
+        $this->pageFactory     = $pageFactory;
+        $this->sessionManager  = $sessionManager;
+        $this->repository      = $repository;
+                parent::__construct($context);
     }
+
 
     /**
      * @return \Magento\Framework\View\Result\Page
@@ -110,7 +97,6 @@ abstract class AbstractElevator extends Action
     protected function _setPageData()
     {
         $resultPage = $this->_getResultPage();
-        $resultPage->setActiveMenu(static::MENU_ITEM);
         $resultPage->getConfig()->getTitle()->prepend((__(static::TITLE)));
         $resultPage->addBreadcrumb(__(static::BREADCRUMB_TITLE), __(static::BREADCRUMB_TITLE));
         $resultPage->addBreadcrumb(__(static::BREADCRUMB_TITLE), __(static::BREADCRUMB_TITLE));
@@ -133,5 +119,17 @@ abstract class AbstractElevator extends Action
     protected function redirectToGrid()
     {
         return $this->_redirect('*/*/listing');
+    }
+    protected function doRefererRedirect()
+    {
+        $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $redirect->setUrl($this->_redirect->getRefererUrl());
+        return $redirect;
+    }
+    protected function getModel()
+    {
+        if($this->model === null) {
+            return $this->elevatorFactory->create();
+        } else return $this->model;
     }
 }

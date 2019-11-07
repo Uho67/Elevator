@@ -18,19 +18,22 @@
             <dep>elevator_grid_listing.elevator_grid_listing_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="elevator_grid_listing_data_source" component="Magento_Ui/js/grid/provider">
-        <settings>
-            <storageConfig>
-                <param name="indexField" xsi:type="string">elevator_id</param>
-            </storageConfig>
-            <updateUrl path="mui/index/render"/>
-        </settings>
-        <dataProvider class="Magento\Cms\Ui\Component\DataProvider" name="elevator_grid_listing_data_source">
-            <settings>
-                <requestFieldName>id</requestFieldName>
-                <primaryFieldName>elevator_id</primaryFieldName>
-            </settings>
-        </dataProvider>
+    <dataSource name="elevator_grid_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">elevator_grid_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">elevator_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">elevator_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
     </dataSource>
     <listingToolbar name="listing_top">
         <settings>
@@ -38,27 +41,46 @@
         </settings>
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
+        <exportButton name="export_button"/>
         <filterSearch name="fulltext"/>
-        <filters name="listing_filters">
-            <argument name="data" xsi:type="array">
-                <item name="observers" xsi:type="array">
-                    <item name="column" xsi:type="string">column</item>
-                </item>
-            </argument>
-            <settings>
-                <templates>
-                    <filters>
-                        <select>
-                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
-                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
-                        </select>
-                    </filters>
-                </templates>
-            </settings>
-        </filters>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure to delete selected elevators?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="*/*/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="elevator_grid_listing">
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="cms/page/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">elevator_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">elevator_grid_listing.elevator_grid_listing.elevator_grid_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">elevator_grid_listing.elevator_grid_listing.elevator_grid_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
         <selectionsColumn name="ids">
             <settings>
                 <indexField>elevator_id</indexField>
@@ -75,22 +97,32 @@
         </column>
         <column name="current_floor">
             <settings>
-                <filter>textRange</filter>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
                 <label translate="true">Current floor</label>
-                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="min_floor">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Min floor</label>
             </settings>
         </column>
         <column name="max_floor">
             <settings>
                 <filter>textRange</filter>
                 <label translate="true">Max floor</label>
-                <sorting>asc</sorting>
-            </settings>
-        </column>
-        <column name="min_floor">
-            <settings>
-                <filter>textRange</filter>
-                <label translate="true">Min floor</label>
                 <sorting>asc</sorting>
             </settings>
         </column>

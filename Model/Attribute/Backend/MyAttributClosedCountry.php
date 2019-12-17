@@ -13,18 +13,40 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Directory\Model\CountryFactory;
 use Magento\Framework\Exception\LocalizedException;
 
-
+/**
+ * Class MyAttributClosedCountry
+ * @package Mytest\Elevator\Model\Attribute\Backend
+ */
 class MyAttributClosedCountry extends AbstractBackend
 {
     const PASS_CLOSED_COUNTRY_VAIMO_MYTEST = 'elevator/general/elevator_cloused_country';
+    /**
+     * @var ScopeConfigInterface
+     */
     public $scopeConfig;
+    /**
+     * @var CountryFactory
+     */
     public $countryFactory;
+
+    /**
+     * MyAttributClosedCountry constructor.
+     *
+     * @param ScopeConfigInterface $scopeConfig
+     * @param CountryFactory $countryFactory
+     */
     public function __construct(ScopeConfigInterface $scopeConfig, CountryFactory $countryFactory)
     {
         $this->scopeConfig   = $scopeConfig;
         $this->countryFactory = $countryFactory;
     }
 
+    /**
+     * @param \Magento\Framework\DataObject $object
+     *
+     * @return bool
+     * @throws LocalizedException
+     */
     public function validate($object)
     {
          $object->getData($this->getAttribute()->getAttributeCode());
@@ -42,10 +64,20 @@ class MyAttributClosedCountry extends AbstractBackend
          }
          return true;
     }
+
+    /**
+     * @return array
+     */
     private function getClosedCountry()
     {
         return explode(',',$this->scopeConfig->getValue($this::PASS_CLOSED_COUNTRY_VAIMO_MYTEST));
     }
+
+    /**
+     * @param array $codes
+     *
+     * @return array
+     */
     private function getNameCountryByCode(array $codes)
     {
           $names = array();

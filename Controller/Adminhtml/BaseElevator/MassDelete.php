@@ -17,9 +17,27 @@ use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Mytest\Elevator\Model\BaseElevatorFactory;
 use Mytest\Elevator\Api\Data\BaseElevatorInterface;
 
+/**
+ * Class MassDelete
+ * @package Mytest\Elevator\Controller\Adminhtml\BaseElevator
+ */
 class MassDelete extends AbstractElevator
 {
+    /**
+     * @var SearchCriteriaBuilderFactory
+     */
     private $searchCriteriaBuilderFactory;
+
+    /**
+     * MassDelete constructor.
+     *
+     * @param SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory
+     * @param BaseElevatorFactory $baseElevatorFactory
+     * @param PageFactory $pageFactory
+     * @param SessionManagerInterface $sessionManager
+     * @param Repository $repository
+     * @param Context $context
+     */
     public function __construct(SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory ,
                                 BaseElevatorFactory $baseElevatorFactory,
                                 PageFactory $pageFactory,
@@ -31,6 +49,10 @@ class MassDelete extends AbstractElevator
         parent::__construct($baseElevatorFactory, $pageFactory, $sessionManager, $repository, $context);
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     * @throws \Magento\Framework\Exception\NotFoundException
+     */
     public function execute()
     {
         if (!$this->getRequest()->isPost()) {

@@ -23,7 +23,17 @@ class BaseElevatorProvider extends AbstractDataProvider
      */
     private $sessionManager;
 
-
+    /**
+     * BaseElevatorProvider constructor.
+     *
+     * @param CollectionFactory $collectionFactory
+     * @param SessionManagerInterface $sessionManager
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
+     * @param array $meta
+     * @param array $data
+     */
     public function __construct(CollectionFactory $collectionFactory,
                                 SessionManagerInterface $sessionManager,
                                 $name,

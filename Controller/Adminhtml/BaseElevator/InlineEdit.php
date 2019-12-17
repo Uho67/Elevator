@@ -17,10 +17,27 @@ use Mytest\Elevator\Controller\Adminhtml\AbstractElevator;
 use Mytest\Elevator\Api\Data\BaseElevatorInterface;
 use Mytest\Elevator\Model\BaseElevatorFactory;
 
-
+/**
+ * Class InlineEdit
+ * @package Mytest\Elevator\Controller\Adminhtml\BaseElevator
+ */
 class InlineEdit extends AbstractElevator
 {
+    /**
+     * @var JsonFactory
+     */
     private $jsonFactory;
+
+    /**
+     * InlineEdit constructor.
+     *
+     * @param JsonFactory $jsonFactory
+     * @param BaseElevatorFactory $baseElevatorFactory
+     * @param PageFactory $pageFactory
+     * @param SessionManagerInterface $sessionManager
+     * @param Repository $repository
+     * @param Context $context
+     */
     public function __construct(JsonFactory $jsonFactory,
                                 BaseElevatorFactory $baseElevatorFactory,
                                 PageFactory $pageFactory,
@@ -28,17 +45,19 @@ class InlineEdit extends AbstractElevator
                                 Repository $repository,
                                 Context $context)
     {
-        $this->jsonFactory  =  $jsonFactory;
+        $this->jsonFactory = $jsonFactory;
         parent::__construct($baseElevatorFactory, $pageFactory, $sessionManager, $repository, $context);
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
         /** @var \Magento\Framework\Controller\Result\Json $resultJson */
         $resultJson = $this->jsonFactory->create();
         $error = false;
         $messages = [];
-
         if ($this->getRequest()->getParam('isAjax')) {
             $postItems = $this->getRequest()->getParam('items', []);
             if (!count($postItems)) {
@@ -67,6 +86,12 @@ class InlineEdit extends AbstractElevator
         ]);
     }
 
+    /**
+     * @param BaseElevatorInterface $elevator
+     * @param $errorText
+     *
+     * @return string
+     */
     protected function getErrorWithBlockId(BaseElevatorInterface $elevator, $errorText)
     {
         return '[Elevator ID: ' . $elevator->getId() . '] ' . $errorText;

@@ -7,9 +7,6 @@
  */
 
 namespace Mytest\Elevator\Model;
-use Magento\Framework\Api\SearchCriteriaBuilderFactory;
-
-use SearchCriteriaBuilderFactory;
 
 /**
  * Class BaseElevatorRepository
@@ -37,6 +34,10 @@ class BaseElevatorRepository implements \Mytest\Elevator\Api\BaseElevatorReposit
      * @var \Magento\Framework\Api\Search\SearchResultInterfaceFactory
      */
     private $searchResultFactory;
+    /**
+     * @var \Magento\Framework\Api\SearchCriteriaBuilderFactory
+     */
+    private $searchCriteriaBuilderFactory;
 
     /**
      * BaseElevatorRepository constructor.
@@ -48,15 +49,17 @@ class BaseElevatorRepository implements \Mytest\Elevator\Api\BaseElevatorReposit
      * @param \Magento\Framework\Api\Search\SearchResultInterfaceFactory $searchResult
      */
     public function __construct(
+        \Magento\Framework\Api\SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory,
         \Mytest\Elevator\Model\BaseElevatorFactory $baseElevatorFactory,
         \Mytest\Elevator\Model\ResourceModel\BaseElevator $resourceModel,
         \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor,
         \Mytest\Elevator\Model\ResourceModel\BaseElevator\CollectionFactory $collectionFactory,
         \Magento\Framework\Api\Search\SearchResultInterfaceFactory $searchResult
-  ) {
+    ) {
+        $this->searchCriteriaBuilderFactory = $searchCriteriaBuilderFactory;
         $this->collectionProcessor = $collectionProcessor;
-        $this->collectionFactory   = $collectionFactory;
-        $this->resourceModel       = $resourceModel;
+        $this->collectionFactory = $collectionFactory;
+        $this->resourceModel = $resourceModel;
         $this->baseElevatorFactory = $baseElevatorFactory;
         $this->searchResultFactory = $searchResult;
     }
@@ -64,7 +67,7 @@ class BaseElevatorRepository implements \Mytest\Elevator\Api\BaseElevatorReposit
     /**
      * @param $id
      *
-     * @return mixed
+     * @return mixed|BaseElevator
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getById($id)
@@ -72,8 +75,9 @@ class BaseElevatorRepository implements \Mytest\Elevator\Api\BaseElevatorReposit
         $elevator = $this->baseElevatorFactory->create();
         $this->resourceModel->load($elevator, $id);
         if (!$elevator->getId()) {
-            throw new \Magento\Framework\Exception\NoSuchEntityException(__('Elevatir with id "%1" does not exist.', $id));
+            throw new \Magento\Framework\Exception\NoSuchEntityException(__('Elevator with id "%1" does not exist.', $id));
         }
+
         return $elevator;
     }
 
@@ -90,6 +94,7 @@ class BaseElevatorRepository implements \Mytest\Elevator\Api\BaseElevatorReposit
         $searchResults->setSearchCriteria($searchCriteria);
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
+
         return $searchResults;
     }
 
@@ -120,6 +125,7 @@ class BaseElevatorRepository implements \Mytest\Elevator\Api\BaseElevatorReposit
         } catch (\Exception $exception) {
             throw new \Magento\Framework\Exception\CouldNotDeleteException(__($exception->getMessage()));
         }
+
         return $this;
     }
 
@@ -136,10 +142,7 @@ class BaseElevatorRepository implements \Mytest\Elevator\Api\BaseElevatorReposit
         } catch (\Exception $exception) {
             throw new \Magento\Framework\Exception\CouldNotSaveException(__($exception->getMessage()));
         }
-        return $baseElevator;
-    }
-    private function validation(\Mytest\Elevator\Api\Data\BaseElevatorInterface $baseElevator)
-    {
 
+        return $baseElevator;
     }
 }

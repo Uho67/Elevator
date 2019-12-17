@@ -21,13 +21,7 @@ use Mytest\Elevator\Api\Data\BaseElevatorInterface;
  */
 class InstallSchema implements InstallSchemaInterface
 {
-    /**
-     *
-     */
     const TABLE_BLOCKED_FLOOR = 'table_blocked_floor';
-    /**
-     *
-     */
     const FIELD_FLOOR = 'blocked_floor';
 
     /**
@@ -51,30 +45,47 @@ class InstallSchema implements InstallSchemaInterface
     {
         $setup->startSetup();
         $tableElevator = $setup->getConnection()->newTable(
-            $setup->getTable( BaseElevatorInterface::TABLE_NAME)
+            $setup->getTable(BaseElevatorInterface::TABLE_NAME)
         )->addColumn(
             BaseElevatorInterface::FIELD_ID,
             Table::TYPE_INTEGER,
             null,
-            ['identity' => true, 'nullable' => false, 'primary' => true, 'unsigned'=> true],
+            [
+                'identity' => true,
+                'nullable' => false,
+                'primary' => true,
+                'unsigned' => true
+            ],
             'Elevator ID'
         )->addColumn(
             BaseElevatorInterface::FIELD_CURRENT_FLOOR,
             Table::TYPE_INTEGER,
             null,
-            ['identity' => false, 'nullable' => false, 'unsigned'=> false],
+            [
+                'identity' => false,
+                'nullable' => false,
+                'unsigned' => false
+            ],
             'Current floor'
         )->addColumn(
             BaseElevatorInterface::FIELD_MAX_FLOOR,
             Table::TYPE_INTEGER,
             null,
-            ['identity' => false, 'nullable' => false, 'unsigned'=> false],
+            [
+                'identity' => false,
+                'nullable' => false,
+                'unsigned' => false
+            ],
             'Max floor'
         )->addColumn(
             BaseElevatorInterface::FIELD_MIN_FLOOR,
             Table::TYPE_INTEGER,
             null,
-            ['identity' => false, 'nullable' => false, 'unsigned'=> false],
+            [
+                'identity' => false,
+                'nullable' => false,
+                'unsigned' => false
+            ],
             'Min floor'
         )->addColumn(
             BaseElevatorInterface::FIELD_BROKEN,
@@ -86,7 +97,11 @@ class InstallSchema implements InstallSchemaInterface
             BaseElevatorInterface::FIELD_SPEED,
             Table::TYPE_FLOAT,
             null,
-            ['identity' => false, 'nullable' => false, 'unsigned'=> true],
+            [
+                'identity' => false,
+                'nullable' => false,
+                'unsigned' => true
+            ],
             'speed from elevator'
         )->setComment(
             'elevator table'
@@ -109,13 +124,21 @@ class InstallSchema implements InstallSchemaInterface
             BaseElevatorInterface::FIELD_ID,
             Table::TYPE_INTEGER,
             null,
-            ['identity' => false, 'nullable' => false, 'unsigned'=> true],
+            [
+                'identity' => false,
+                'nullable' => false,
+                'unsigned' => true
+            ],
             'Elevator ID'
         )->addColumn(
             $this::FIELD_FLOOR,
             Table::TYPE_INTEGER,
             null,
-            ['identity' => false, 'nullable' => false, 'unsigned'=> true],
+            [
+                'identity' => false,
+                'nullable' => false,
+                'unsigned' => true
+            ],
             'Blocked floor'
         )->addForeignKey( // Add foreign key for table entity
             $setup->getFkName(

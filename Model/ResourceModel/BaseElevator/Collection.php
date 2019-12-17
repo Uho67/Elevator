@@ -7,13 +7,12 @@
  */
 
 namespace Mytest\Elevator\Model\ResourceModel\BaseElevator;
-use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 /**
  * Class Collection
  * @package Mytest\Elevator\Model\ResourceModel\BaseElevator
  */
-class Collection extends AbstractCollection
+class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
     /** {@inheritdoc} */
     protected function _construct()

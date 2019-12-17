@@ -17,26 +17,19 @@ use Magento\Framework\Session\SessionManagerInterface;
 use Mytest\Elevator\Model\BaseElevatorFactory;
 use Mytest\Elevator\Api\BaseElevatorRepositoryInterface as Repository;
 
-
+/**
+ * Class AbstractElevator
+ * @package Mytest\Elevator\Controller\Adminhtml
+ */
 abstract class AbstractElevator extends Action
 {
-    /**
-     *
-     */
     const ACL_RESOURCE          = "Mytest_Elevator::main_menu";
-    /**
-     *
-     */
     const QUERY_PARAM_ID        = 'id';
-    /**
-     *
-     */
     const TITLE                 = 'Elevator module';
-
-    /**
-     *
-     */
     const BREADCRUMB_TITLE      = 'ELevator';
+    /**
+     * @var $model
+     */
     protected $model;
     protected $elevatorFactory;
     /**

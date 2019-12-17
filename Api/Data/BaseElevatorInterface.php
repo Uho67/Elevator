@@ -11,6 +11,7 @@ namespace Mytest\Elevator\Api\Data;
 /**
  * Interface BaseElevatorInterface
  * @package Mytest\Elevator\Api\Data
+ * @api
  */
 interface BaseElevatorInterface
 {

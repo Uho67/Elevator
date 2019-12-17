@@ -12,8 +12,15 @@ use Mytest\Elevator\Api\Data\BaseElevatorInterface as ElevatorInterface;
 use Mytest\Elevator\Controller\Adminhtml\AbstractElevator;
 use Magento\Framework\Exception\LocalizedException;
 
+/**
+ * Class Save
+ * @package Mytest\Elevator\Controller\Adminhtml\BaseElevator
+ */
 class Save extends AbstractElevator
 {
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
 
@@ -24,7 +31,7 @@ class Save extends AbstractElevator
             if (empty($formData)) {
                 $formData = $this->getRequest()->getParams();
             }
-            if(!empty($formData[ElevatorInterface::FIELD_ID])) {
+            if (!empty($formData[ElevatorInterface::FIELD_ID])) {
                 $id = $formData[ElevatorInterface::FIELD_ID];
                 $model = $this->repository->getById($id);
             } else {
@@ -32,48 +39,59 @@ class Save extends AbstractElevator
             }
             $model->setData($formData);
             $validation = $this->validation($model);
-            if(array_shift($validation)) {
+            if (array_shift($validation)) {
                 foreach ($validation as $message) {
                     $this->messageManager->addErrorMessage(__($message));
                 }
                 unset($formData[ElevatorInterface::FIELD_ID]);
                 $this->_getSession()->setFormData($formData);
+
                 return $this->_redirect('*/*/edit');
             }
-
             try {
                 $model = $this->repository->save($model);
                 $this->messageManager->addSuccessMessage(__('Elevator has been saved.'));
                 if ($this->getRequest()->getParam('back')) {
-                    return $this->_redirect('*/*/edit', ['id' => $model->getId(), '_current' => true]);
+                    return $this->_redirect('*/*/edit', [
+                        'id' => $model->getId(),
+                        '_current' => true
+                    ]);
                 }
                 $this->_getSession()->setFormData(null);
+
                 return $this->redirectToGrid();
             } catch (\Exception $e) {
-                $this->messageManager->addErrorMessage(__('Elevator doesn\'t save' ));
+                $this->messageManager->addErrorMessage(__('Elevator doesn\'t save'));
             }
             $this->_getSession()->setFormData($formData);
+
             return (!empty($model->getId())) ?
                 $this->_redirect('*/*/edit', ['id' => $model->getId()])
                 : $this->_redirect('*/*/edit');
         }
+
         return $this->doRefererRedirect();
     }
 
-
+    /**
+     * @param ElevatorInterface $model
+     *
+     * @return array
+     */
     private function validation(ElevatorInterface $model)
     {
-        if($model->getMaxFloor()<=$model->getMinFloor()) {
+        if ($model->getMaxFloor() <= $model->getMinFloor()) {
             $answer[] = 'Max floor can not be equal or less than Min';
         }
-        if ($model->getCurrentFloor()<$model->getMinFloor() || $model->getCurrentFloor()>$model->getMaxFloor()) {
+        if ($model->getCurrentFloor() < $model->getMinFloor() || $model->getCurrentFloor() > $model->getMaxFloor()) {
             $answer[] = 'Chose current floor';
         }
-       if(isset($answer)) {
-           array_unshift($answer,true);
-       } else {
-           $answer[] = false;
-       }
+        if (isset($answer)) {
+            array_unshift($answer, true);
+        } else {
+            $answer[] = false;
+        }
+
         return $answer;
     }
 }

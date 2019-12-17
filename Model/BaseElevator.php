@@ -8,23 +8,15 @@
 
 namespace Mytest\Elevator\Model;
 
-use Magento\Framework\Model\AbstractModel;
-
-use Mytest\Elevator\Api\Data\BaseElevatorInterface;
-use Mytest\Elevator\Model\ResourceModel\BaseElevator as ResourseModel;
-
 /**
  * Class BaseElevator
  * @package Mytest\Elevator\Model
  */
-class BaseElevator extends AbstractModel implements BaseElevatorInterface
+class BaseElevator extends \Magento\Framework\Model\AbstractModel implements \Mytest\Elevator\Api\Data\BaseElevatorInterface
 {
-    /**
-     *
-     */
     public function _construct()
     {
-        $this->_init(ResourseModel::class);
+        $this->_init(\Mytest\Elevator\Model\ResourceModel\BaseElevator::class);
     }
 
     /**
@@ -32,7 +24,7 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function getCurrentFloor()
     {
-        return $this->getData(BaseElevatorInterface::FIELD_CURRENT_FLOOR);
+        return $this->getData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_CURRENT_FLOOR);
     }
 
     /**
@@ -42,7 +34,7 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function setCurrentFloor($floor)
     {
-        $this->setData(BaseElevatorInterface::FIELD_CURRENT_FLOOR,$floor);
+        $this->setData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_CURRENT_FLOOR, $floor);
     }
 
     /**
@@ -50,7 +42,7 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function getMinFloor()
     {
-        return $this->getData(BaseElevatorInterface::FIELD_MIN_FLOOR);
+        return $this->getData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_MIN_FLOOR);
     }
 
     /**
@@ -60,7 +52,7 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function setMinFloor($floor)
     {
-       $this->setData(BaseElevatorInterface::FIELD_MIN_FLOOR,$floor);
+        $this->setData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_MIN_FLOOR, $floor);
     }
 
     /**
@@ -68,7 +60,7 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function getMaxFloor()
     {
-        return $this->getData(BaseElevatorInterface::FIELD_MAX_FLOOR);
+        return $this->getData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_MAX_FLOOR);
     }
 
     /**
@@ -78,7 +70,7 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function setMaxFloor($floor)
     {
-        $this->setData(BaseElevatorInterface::FIELD_MAX_FLOOR,$floor);
+        $this->setData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_MAX_FLOOR, $floor);
     }
 
     /**
@@ -86,7 +78,7 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function getIfBroken()
     {
-        return $this->getData(BaseElevatorInterface::FIELD_BROKEN);
+        return $this->getData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_BROKEN);
     }
 
     /**
@@ -96,7 +88,7 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function setIfBroken($yesno)
     {
-        $this->setData(BaseElevatorInterface::FIELD_BROKEN,$yesno);
+        $this->setData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_BROKEN, $yesno);
     }
 
     /**
@@ -104,7 +96,7 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function getElevatorSpeed()
     {
-        return $this->getData(BaseElevatorInterface::FIELD_SPEED);
+        return $this->getData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_SPEED);
     }
 
     /**
@@ -114,6 +106,6 @@ class BaseElevator extends AbstractModel implements BaseElevatorInterface
      */
     public function setElevatorSpeed($speed)
     {
-        $this->setData(BaseElevatorInterface::FIELD_BROKEN,$speed);
+        $this->setData(\Mytest\Elevator\Api\Data\BaseElevatorInterface::FIELD_BROKEN, $speed);
     }
 }

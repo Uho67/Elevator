@@ -7,6 +7,7 @@
  */
 
 namespace Mytest\Elevator\Controller\Adminhtml\BaseElevator;
+
 use Mytest\Elevator\Controller\Adminhtml\AbstractElevator;
 
 /**
@@ -32,18 +33,18 @@ class Edit extends AbstractElevator
                 $this->sessionManager->setCurrentElevatorModel($model);
             } catch (\Magento\Framework\Exception\NoSuchEntityException $exception) {
                 $this->messageManager->addErrorMessage(__('Entity with id %1 not found', $id));
+
                 return $this->redirectToGrid();
             }
         } else {
-            if($this->_getSession()->getFormData()){
+            if ($this->_getSession()->getFormData()) {
                 $model = $this->getModel();
                 $model->setData($this->_getSession()->getFormData());
                 $this->_getSession()->setFormData(null);
                 $this->sessionManager->setCurrentElevatorModel($model);
-
             }
-
         }
+
         return parent::execute();
     }
 }

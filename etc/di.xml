@@ -5,14 +5,16 @@
                 type="Mytest\Elevator\Model\BaseElevator" />
     <preference for="Mytest\Elevator\Api\BaseElevatorRepositoryInterface"
                 type="Mytest\Elevator\Model\BaseElevatorRepository" />
+    <preference for="Mytest\Elevator\Model\Commands\Elevator\GetByIdInterface"
+                type="Mytest\Elevator\Model\Commands\Elevator\GetById" />
+    <preference for="Mytest\Elevator\Model\Commands\Elevator\SaveInterface"
+                type="Mytest\Elevator\Model\Commands\Elevator\Save" />
 
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item
-                    name="elevator_grid_listing_data_source"
-                    xsi:type="string"
-                >Mytest\Elevator\Model\ResourceModel\BaseElevator\Grid\Collection</item>
+                    name="elevator_grid_listing_data_source" xsi:type="string">Mytest\Elevator\Model\ResourceModel\BaseElevator\Grid\Collection</item>
     </argument>
         </arguments>
     </type>

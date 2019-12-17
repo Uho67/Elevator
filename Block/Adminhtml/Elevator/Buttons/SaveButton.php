@@ -10,6 +10,10 @@ namespace Mytest\Elevator\Block\Adminhtml\Elevator\Buttons;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
+/**
+ * Class SaveButton
+ * @package Mytest\Elevator\Block\Adminhtml\Elevator\Buttons
+ */
 class SaveButton extends GenericButton implements ButtonProviderInterface
 {
     /** {@inheritdoc} */

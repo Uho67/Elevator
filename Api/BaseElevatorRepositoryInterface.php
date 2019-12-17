@@ -9,6 +9,7 @@
 namespace Mytest\Elevator\Api;
 
 /**
+ * @api
  * Interface BaseElevatorRepositoryInterface
  * @package Mytest\Elevator\Api
  */

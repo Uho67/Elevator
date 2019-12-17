@@ -19,17 +19,9 @@ use Magento\Framework\UrlInterface;
  */
 class Actions extends Column
 {
-    /**
-     *
-     */
-    const URL_EDIT   = 'elevator/baseelevator/edit';
+    const URL_EDIT = 'elevator/baseelevator/edit';
     const URL_DELETE = 'elevator/baseelevator/delete';
-
-    /**
-     *
-     */
     const IDENTIFIRE = 'elevator_id';
-
     /**
      * @var UrlInterface
      */
@@ -61,9 +53,9 @@ class Actions extends Column
     public function prepareDataSource(array $dataSource)
     {
         $name = $this->getName();
-        if(isset($dataSource['data']['items'])) {
+        if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as &$item) {
-                if(isset($item['elevator_id'])) {
+                if (isset($item['elevator_id'])) {
                     $item[$name]['edit'] = [
                         'href' => $this->urlBuilder->getUrl($this::URL_EDIT, ['id' => $item[$this::IDENTIFIRE]]),
                         'label' => __('Edit')
@@ -75,6 +67,7 @@ class Actions extends Column
                 }
             }
         }
+
         return $dataSource;
     }
 }
